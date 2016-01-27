@@ -1,0 +1,39 @@
+body {
+	background-color:#33363B;
+}
+
+#header{
+	height: 60px;
+	width:100%;
+	background-image: url('../image/HeaderBG.png');
+	background-size: 100% 100%;
+	background-repeat:repeat-x;
+}
+
+#header img {
+	height:50px;
+	margin-top:5px;
+}
+
+#footer {
+	width:100%;
+	text-align:right;
+}
+
+.footer_icon {
+	height:45px;
+	margin:5px 10px 0px 0px;
+	float:right;
+}
+
+
+#content {
+	width:100%;
+	background-image: url('../image/MainBG.png');
+	background-size: 100% auto;
+	background-repeat:no-repeat;
+	background-position:center 0px;
+	text-align:center;
+	color:#FFFFFF;
+}
+

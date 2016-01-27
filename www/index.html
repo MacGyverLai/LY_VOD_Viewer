@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>LY Mobile</title>
+        <script type="text/javascript">
+			function setOrientation() {
+				var html = $("#ContentMsg").html();
+				html = "裝置平台為" + device + "<br/><br/>" + html;
+				$("#ContentMsg").html(html);
+				$("#header").html('<img src="image/Logo.png"/>');
+				$("#content").height($(window).height() - $("#header").height());
+				setTimeout(setOrientation2(),1000);
+
+			}
+			
+			function setOrientation2() {
+				$("#btn_TestServer").click(function() {
+					window.location.href = "http://" + REMOTE_SERVER + device + "/home.html";
+				});
+				$("#btn_Refresh").click(function() {
+					window.location.reload();
+				});
+				checkConnection();
+			}
+			function checkConnection() {
+				//$("#content").ajaxError(function() {alert("ajaxError");});
+				//console.log("DEBUG: before ajax");
+				$.ajax({
+					type: "GET",
+					crossDomain: true,
+					//dataType:'jsonp',
+					//url: "http://" + REMOTE_SERVER + "test.jsonp",
+					dataType : 'text',
+					url: "http://" + REMOTE_SERVER + "test.html",
+					success: function(msg){
+						console.log("DEBUG: ajax success");
+						window.location.href="http://" + REMOTE_SERVER + device + "/home.html";
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						console.log("DEBUG: ajax fail");
+						if(XMLHttpRequest.status == 200) {
+							window.location.href="http://" + REMOTE_SERVER + device + "/home.html";
+						} else {
+							//$("#content p").html("Connection Fail:"+textStatus);
+							$("#content p").html("Connection Fail");
+						}
+					}
+				});
+			}
+
+    </script>
+    </head>
+    <body>
+		<div id="header">
+		</div>
+		<div id="content">
+			<div id="ContentMsg" style="width:60%;text-align:left;line-height:25px;margin:0px auto;padding-top:50px;">
+			測試網路連線中，偵測成功後會自動進入功能頁。<br/><br/>如果一直停留在此頁面，請確認您的行動裝置已經連接至網路後，重新開啟此軟體或是按下重新偵測按鈕。
+			<button id="btn_Refresh" style="width:100%;font-size:18px;">重新偵測</button>
+			<p></p>
+			</div>
+		</div>
+		<div id="footer">
+		</div>
+        <script type="text/javascript" src="cordova.js"></script>
+	    <script src="js/jquery.js"></script>
+	    <script src="js/conf.js"></script>
+        <script type="text/javascript">
+        	document.addEventListener('deviceready', setOrientation, false);
+        </script>
+    </body>
+</html>
